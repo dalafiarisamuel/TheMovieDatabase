@@ -35,7 +35,6 @@ fun PopularMoviesComponent(
         modifier = modifier
             .fillMaxSize()
             .padding(
-                top = TheMovieDatabaseTheme.dimens.standard75,
                 start = TheMovieDatabaseTheme.dimens.standard50,
                 end = TheMovieDatabaseTheme.dimens.standard50
             )
