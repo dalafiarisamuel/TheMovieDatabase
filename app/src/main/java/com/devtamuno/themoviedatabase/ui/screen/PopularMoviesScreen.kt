@@ -49,22 +49,21 @@ fun PopularMoviesScreen() {
             topEnd = TheMovieDatabaseTheme.dimens.standard75
         ),
         sheetContent = {
-            if (selectedMovie == null) {
-                Box(
-                    modifier = Modifier
-                        .size(1.dp)
-                )
-                return@ModalBottomSheetLayout
-            }
-
-            MovieDisplayBottomSheet(
-                movie = selectedMovie!!
-            ) {
-                coroutineScope.launch {
-                    modalSheetState.hide()
-                    navController.navigate(MovieScreen.MOVIE_DETAIL.createPath(selectedMovie!!.id))
+            selectedMovie?.let {
+                MovieDisplayBottomSheet(movie = it) {
+                    coroutineScope.launch {
+                        modalSheetState.hide()
+                        navController.navigate(
+                            MovieScreen.MOVIE_DETAIL.createPath(it.id)
+                        )
+                    }
                 }
-            }
+
+            } ?: Box(
+                modifier = Modifier
+                    .size(1.dp)
+            )
+            return@ModalBottomSheetLayout
 
         }
     ) {
