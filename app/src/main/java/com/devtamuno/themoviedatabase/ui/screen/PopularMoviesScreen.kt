@@ -70,16 +70,15 @@ fun PopularMoviesScreen() {
         PopularMoviesComponent(
             modifier = Modifier.fillMaxSize(),
             movies = viewModel.movies,
-            onMovieClicked = { movie ->
-                selectedMovie = movie
-                if (selectedMovie != null) {
-                    coroutineScope.launch {
-                        if (modalSheetState.isVisible) modalSheetState.hide()
-                        else modalSheetState.animateTo(ModalBottomSheetValue.Expanded)
-                    }
+        ) { movie ->
+            selectedMovie = movie
+            selectedMovie?.let {
+                coroutineScope.launch {
+                    if (modalSheetState.isVisible) modalSheetState.hide()
+                    else modalSheetState.animateTo(ModalBottomSheetValue.Expanded)
                 }
-            },
-        )
+            }
+        }
     }
 
     BackHandler(enabled = modalSheetState.isVisible) {

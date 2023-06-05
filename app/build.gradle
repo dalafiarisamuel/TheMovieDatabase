@@ -16,6 +16,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -32,6 +33,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -45,6 +47,15 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += 'META-INF/LICENSE.md'
+            excludes += 'META-INF/LICENSE-notice.md'
+        }
+    }
+    testOptions {
+        packagingOptions {
+            jniLibs {
+                useLegacyPackaging = true
+            }
         }
     }
 }
@@ -67,8 +78,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-compose:2.6.0-rc01'
 
     //kotlin coroutine
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0'
 
     //network section
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
@@ -91,9 +102,9 @@ dependencies {
 
     //test dependency
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
-    testImplementation 'io.mockk:mockk:1.13.1'
-    testImplementation 'io.mockk:mockk-agent-jvm:1.13.1'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.0'
+    testImplementation 'io.mockk:mockk:1.13.5'
+    testImplementation 'io.mockk:mockk-agent-jvm:1.13.5'
     testImplementation 'com.google.truth:truth:1.1.2'
 
 
@@ -103,6 +114,9 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test:$compose_version"
     androidTestImplementation "androidx.compose.ui:ui-util:$compose_version"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.0.3"
+
 }
 
 kapt {
